@@ -9,6 +9,7 @@ import NavBar from './components/Navbar'
 import { fetchCurrentUser } from './services/ApiService';
 import { useEffect, useState } from 'react';
 import UserContext from './contexts/UserContext';
+import Orders from './components/Orders';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -47,6 +48,7 @@ function App() {
           <Route path='/register' element={<Registration />} />
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/orders' element={<Orders/>} />
           <Route path='*' element={<NotFound />} />
 
 

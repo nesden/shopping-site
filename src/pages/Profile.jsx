@@ -15,7 +15,7 @@ const Profile = () => {
     const [errorFromServer, setErrorFromServer] = useState("");
     const [isFormValid, setIsFormValid] = useState(true);
 
-    useEffect(() => { 
+    useEffect(() => {
         if (currentUser) {
             setFormData(currentUser);
         }
@@ -112,68 +112,63 @@ const Profile = () => {
 
     return (
         <div className='profile'>
-            {(currentUser && isRequestToGetCurrentUserDone)
-                &&
+            {(currentUser && isRequestToGetCurrentUserDone) &&
                 < div className='center' >
                     {(formData && !isDeletedAccount) &&
                         <div>
+                            <h2>your profile </h2>
+                            <form className='profile-form' onSubmit={handleSubmit}>
+                                <div className='form-group'>
+                                    <label htmlFor="first_name" className='form-label'>First Name</label>
+                                    <input type="text" name='first_name' value={formData.first_name}
+                                        className={`form-input ${errors.first_name ? "input-error" : ""}`}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                    />
+                                    {errors.first_name && <p className='error-text'>{errors.first_name}</p>}
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor="last_name" className='form-label'>Last Name</label>
+                                    <input type="text" name='last_name' value={formData.last_name}
+                                        className={`form-input ${errors.last_name ? "input-error" : ""}`}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                    />
+                                    {errors.last_name && <p className='error-text'>{errors.last_name}</p>}
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor="email" className='form-label'>Email</label>
+                                    <input type="email" name='email' value={formData.email}
+                                        className={`form-input ${errors.email ? "input-error" : ""}`}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                    />
+                                    {errors.email && <p className='error-text'>{errors.email}</p>}
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor="phone" className='form-label'>Phone</label>
+                                    <input type="tel" name='phone' value={formData.phone}
+                                        className={`form-input ${errors.phone ? "input-error" : ""}`}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                    />
+                                    {errors.phone && <p className='error-text'>{errors.phone}</p>}
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor="address" className='form-label'>Address</label>
+                                    <input type="text" name='address' value={formData.address}
+                                        className={`form-input ${errors.address ? "input-error" : ""}`}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                    />
+                                    {errors.address && <p className='error-text'>{errors.address}</p>}
+                                </div>
 
-                            <div>
-                                <h2>your profile </h2>
-                                <form className='profile-form' onSubmit={handleSubmit}>
-                                    <div className='form-group'>
-                                        <label htmlFor="first_name" className='form-label'>First Name</label>
-                                        <input type="text" name='first_name' value={formData.first_name}
-                                            className={`form-input ${errors.first_name ? "input-error" : ""}`}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                        />
-                                        {errors.first_name && <p className='error-text'>{errors.first_name}</p>}
-                                    </div>
-                                    <div className='form-group'>
-                                        <label htmlFor="last_name" className='form-label'>Last Name</label>
-                                        <input type="text" name='last_name' value={formData.last_name}
-                                            className={`form-input ${errors.last_name ? "input-error" : ""}`}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                        />
-                                        {errors.last_name && <p className='error-text'>{errors.last_name}</p>}
-                                    </div>
-                                    <div className='form-group'>
-                                        <label htmlFor="email" className='form-label'>Email</label>
-                                        <input type="email" name='email' value={formData.email}
-                                            className={`form-input ${errors.email ? "input-error" : ""}`}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                        />
-                                        {errors.email && <p className='error-text'>{errors.email}</p>}
-                                    </div>
-                                    <div className='form-group'>
-                                        <label htmlFor="phone" className='form-label'>Phone</label>
-                                        <input type="tel" name='phone' value={formData.phone}
-                                            className={`form-input ${errors.phone ? "input-error" : ""}`}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                        />
-                                        {errors.phone && <p className='error-text'>{errors.phone}</p>}
-                                    </div>
-                                    <div className='form-group'>
-                                        <label htmlFor="address" className='form-label'>Address</label>
-                                        <input type="text" name='address' value={formData.address}
-                                            className={`form-input ${errors.address ? "input-error" : ""}`}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                        />
-                                        {errors.address && <p className='error-text'>{errors.address}</p>}
-                                    </div>
+                                {errorFromServer && <p className='error-text'>{errorFromServer}</p>}
 
-                                    {errorFromServer && <p className='error-text'>{errorFromServer}</p>}
-
-                                    {!isEditing && <button type='button' className='edit-btn' onClick={() => setIsEditing(true)}>Edit</button>}
-                                    {isEditing && <button type='submit' className='save-btn' disabled={!isFormValid}>Save</button>}
-                                </form>
-                            </div>
-
+                                {!isEditing && <button type='button' className='edit-btn' onClick={() => setIsEditing(true)}>Edit</button>}
+                                {isEditing && <button type='submit' className='save-btn' disabled={!isFormValid}>Save</button>}
+                            </form>
                         </div>
                     }
                     {!isDeletedAccount ?
@@ -181,10 +176,6 @@ const Profile = () => {
                         :
                         <h3>Your account has been deleted</h3>
                     }
-                    <div>
-                        <Orders />
-                        {/* put this in a new page */}
-                    </div>
                 </div>
             }
 

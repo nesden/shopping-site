@@ -1,0 +1,6 @@
+.items-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 🔥 5 items per row */
+  gap: 16px;
+  padding: 16px;
+}

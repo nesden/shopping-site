@@ -1,0 +1,12 @@
+.item-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  width: 350px;
+  text-align: center;
+}
+
+.item-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}

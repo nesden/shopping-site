@@ -28,8 +28,9 @@ const Navbar = () => {
         {currentUser &&
           <div >
             <CustomLink to={'/profile'} >profile</CustomLink>
+            <CustomLink to={'/orders'}>orders</CustomLink>
             <button onClick={logout}>Logout</button>
-            {/* link to a page of past orders */}
+
 
           </div>
         }
