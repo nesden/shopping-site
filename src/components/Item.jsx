@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../styles/Item.css'
-import { addItemsToOrder, getAllOrdersByUser, purchase, removeFromCart } from '../services/ApiService';
-import Order from './Order';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-const Item = ({ item, handleAddItem, isLoading }) => {
-    const [orders, setOrders] = useState([]);
-    const [errorFromServer, setErrorFromServer] = useState("");
+const Item = ({ item, handleAddItem, isLoading, isFavorite, handleRemoveFromFavorites, handleAddToFavorites }) => {
 
     return (
 
         <div className='item-card'>
-            <img src={item.image} alt={item.name} className="item-image" />
+            <img src={item.image} alt={item.name} className="item-image-shop" />
             <h3>{item.name}</h3>
             <p>Amount: {item.amount}</p>
-            <p>Price: {item.price}</p>
+            <p>Price: {item.price} $</p>
 
-            <button
-                onClick={() => handleAddItem({ itemId: item.id })}
-                disabled={isLoading || item.amount === 0}
-            >
-                {isLoading ? 'Adding...' : 'Add to Order'}
-            </button>
+            <div className="item-actions">
+                <button
+                    onClick={() => handleAddItem({ itemId: item.id })}
+                    disabled={isLoading || item.amount === 0}
+                >
+                    {item.amount <= 0 ? 'out of stock' : 'Add to Order'}
 
+                </button>
+
+                <button
+                    onClick={() => isFavorite ? handleRemoveFromFavorites(item.id) : handleAddToFavorites(item.id)}
+                    disabled={isLoading}
+                >
+                    {isFavorite ? <StarIcon /> : <StarBorderIcon/>}
+                </button>
+            </div >
         </div >
-
     );
 }
 

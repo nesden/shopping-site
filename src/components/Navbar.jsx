@@ -27,8 +27,10 @@ const Navbar = () => {
         {(isRequestToGetCurrentUserDone && !currentUser) && <CustomLink to={'/login'}>Login</CustomLink>}
         {currentUser &&
           <div >
-            <CustomLink to={'/profile'} >profile</CustomLink>
+            <CustomLink to={'/favorites'}>favorites</CustomLink>
             <CustomLink to={'/orders'}>orders</CustomLink>
+            <CustomLink to={'/profile'} >profile</CustomLink>
+
             <button onClick={logout}>Logout</button>
 
 

@@ -1,36 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Orders.css'
-import { addItemsToOrder, getAllOrdersByUser, purchase, removeFromCart } from '../services/ApiService';
+import { addItemsToOrder, findAllItems, getAllOrdersByUser} from '../services/ApiService';
 import Order from './Order';
 
 const Orders = () => {
+  const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [errorFromServer, setErrorFromServer] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
+  const fetchItems = async () => {
+    try {
+      const data = await findAllItems();
+      console.log("Fetched items:", data);
+      setItems(data.data);
+    } catch (err) {
+      console.error('Failed to load items:', err);
+    }
+  };
+  useEffect(() => {
 
-
-
-  // const handleAddItem = async ({ itemId }) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const updatedItems = await addItemsToOrder(itemId);//was itemid
-  //     setOrders(updatedItems);
-  //     setIsLoading(false);
-  //   } catch (err) {
-  //     setErrorFromServer('Could not add item to order');
-  //     setTimeout(() => {
-  //       setErrorFromServer("");
-  //       setIsLoading(false);
-  //     }, 3000);
-  //   }
-  // };
-
-  // const currentDate = new Date().toISOString().split("T")[0];
-  //       const newNote = { text: newNoteText, creation_date: currentDate };
-  //date of note change to make it for order if needed to use
-
-
+    fetchItems();
+  }, []);
 
   const getCurrentUserOrders = async () => {
     try {
@@ -47,43 +37,6 @@ const Orders = () => {
     getCurrentUserOrders();
   }, []);
 
-
-  const handlePurchase = async () => {//stole from a place
-    const conifrmPurchase = window.confirm("accepting this will buy your current order");
-    if (conifrmPurchase) {
-      try {
-        await purchase();
-        getCurrentUserOrders();
-        // setIsPurchasing(true);
-      } catch (err) {
-        console.log(err);
-        if (err.status == 400 || err.status == 500) {
-          setErrorFromServer(err.response.data);
-        }
-        if (err.code == "ERR_NETWORK") {
-          setErrorFromServer("Network error. Please try again later.");
-        }
-        setTimeout(() => {
-          setErrorFromServer("");
-        }, 3000);
-      }
-    }
-  }
-
-  const handleRemoveFromCart = async (itemId) => {
-    try {
-      await removeFromCart(itemId)
-    } catch (err) {
-      console.log(err);
-
-    }
-    getCurrentUserOrders();
-  }
-
-
-
-
-
   return (
     <div className='orders-page'>
       <h2>Your orders</h2>
@@ -92,15 +45,11 @@ const Orders = () => {
         <p>You have no orders.</p>
       ) : (
         orders.map(order => (
-          <Order key={order.id} order={order} />
-
+          <Order key={order.id} order={order} refreshOrders={getCurrentUserOrders}/>
+          
         ))
       )}
-
-
     </div>
-
-
   );
 };
 

@@ -9,7 +9,8 @@ import NavBar from './components/Navbar'
 import { fetchCurrentUser } from './services/ApiService';
 import { useEffect, useState } from 'react';
 import UserContext from './contexts/UserContext';
-import Orders from './components/Orders';
+import Orders from './pages/Orders';
+import MyFavoritesPage from './pages/MyFavoritesPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -47,8 +48,10 @@ function App() {
           {/* might need to be the login page since all users of the site must bew logged in */}
           <Route path='/register' element={<Registration />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/orders' element={<Orders />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/orders' element={<Orders/>} />
+          <Route path='/favorites' element={<MyFavoritesPage/>} />
+
           <Route path='*' element={<NotFound />} />
 
 

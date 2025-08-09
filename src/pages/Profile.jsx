@@ -19,7 +19,7 @@ const Profile = () => {
         if (currentUser) {
             setFormData(currentUser);
         }
-    }, [currentUser]);//3.05
+    }, [currentUser]);
 
 
 
@@ -84,7 +84,7 @@ const Profile = () => {
         }
     }
 
-    const handleDeleteAccount = async () => {//stole from a place
+    const handleDeleteAccount = async () => {
         const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
         if (confirmDelete) {
             try {
@@ -185,6 +185,7 @@ const Profile = () => {
                 (isRequestToGetCurrentUserDone && !currentUser)
                 &&
                 <div className='center'>
+                    <h1>no entry</h1>
                     <h2>please login to enter this page</h2>
                     <button className='login-btn' onClick={() => navigate("/login")}>login</button>
                 </div>

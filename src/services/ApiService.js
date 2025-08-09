@@ -46,12 +46,12 @@ export const findAllItems = () => {//might need to do this not have to be user
 export const findItem = (itemId) => {
     return axios.get(`${BASE_URL}/items/${itemId}`, itemId, { headers: getAuthHeaders() });
 };
-
+ 
 export const search = (searchbar) => {
-    return axios.get(`${BASE_URL}/items/search/${searchbar}`, searchbar, { headers: getAuthHeaders() });
+    return axios.get(`${BASE_URL}/items/search/${searchbar}`, { headers: getAuthHeaders() });
 };
 export const addToFavorites = (itemId) => {
-    return axios.get(`${BASE_URL}/items/favorites/${itemId}`, { headers: getAuthHeaders() });
+    return axios.post(`${BASE_URL}/items/favorites/${itemId}`, {}, { headers: getAuthHeaders() });
 };
 export const removeFromFavorites = (itemId) => {
     return axios.delete(`${BASE_URL}/items/favorites/${itemId}`, { headers: getAuthHeaders() });
@@ -70,7 +70,7 @@ export const removeFromCart = (itemId) => {
 };
 
 export const purchase = () => {
-    return axios.post(`${BASE_URL}/items/cart/purchase`, { headers: getAuthHeaders() });
+    return axios.post(`${BASE_URL}/items/cart/purchase`, {}, { headers: getAuthHeaders() });
 };
 
 export const getAllOrdersByUser = () => {
